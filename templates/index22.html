@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <link rel="shortcut icon" href="#">
+  <title>Everest Calculator</title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  
+  <!-- Local CSS -->
+  <link href="static/css/style.css" rel="stylesheet">
+
+  <!-- External CSS  and scripts-->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+
+  <!-- Fonts  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+  
+  <div id="map"></div>
+  
+    <div class="grid-container">
+
+      <div class="grid-child form-container">
+
+        
+          <form id="everest=form" action="/api/v1.0/model" method="POST">
+            
+            <label for="gender">Gender</label>
+              <select name="gender" id="gender">
+                <option value="0">Male</option>
+                <option value="1">Female</option>
+              </select>
+            <br>
+
+            <label for="age">Age</label>
+            <input id=age type="number" name=age min="0" step="1" value=37><br>
+
+            <label for="solo">Solo Attempt </label>
+              <select name="solo" id="solo">
+                <option value="True">Yes</option>
+                <option value="False">No</option>
+              </select>
+            <br>
+
+            <label for="country">Country</label>
+              <select name="country" id="country">
+              </select>
+            <br>
+
+            <label for="route">Route</label>
+              <select name="route" id="route">
+                <option value="North">Northeast Ridge</option>
+                <option value="South">Southeast Ridge</option>
+                <option value="Other">Other</option>
+              </select>
+            <br>
+
+            <label for="oxygen"><strong>Oxygen Use</strong></label><br>
+            <label for="oxygen">Ascent</label>
+              <input type="checkbox" name="ascent" id="ascent" value="True"><br>
+            <label for="oxygen">Descent</label>
+              <input type="checkbox" name="descent" id="descent" value="True"><br>
+            <label for="oxygen">Sleeping</label>
+              <input type="checkbox" name="sleep" id="sleep" value="True"><br>
+
+
+            <label for="job"><strong>Expedition Role</strong></label><br>
+            <label for="job">Climber</label>
+              <input type="radio" name="job" id="climber" value="Climber" checked="checked"><br>
+            <label for="job">Cook</label>
+              <input type="radio" name="job" id="cook" value="Cook"><br>
+            <label for="job">Doctor</label>
+              <input type="radio" name="job" id="doctor" value="Doctor"><br>
+            <label for="job">Deputy Leader</label>
+              <input type="radio" name="job" id="deputy" value="Deputy"><br>
+            <label for="job">Expedition Leader</label>
+              <input type="radio" name="job" id="leader" value="Leader"><br>
+            <label for="job">Other</label>
+              <input type="radio" name="job" id="other" value="Other"><br>
+
+              <label class="switch">Activate Summit Crowding Model
+                <input id="crowding-state" name="crowding-state" type="checkbox" value="True">
+                <span class="slider round"></span>
+              </label>
+
+
+            <div id="slider"></div>
+            
+            <button type="submit" id="get-model">Submit</button>
+            
+          </form>
+         
+      </div>
+        
+      <div class="grid-child vis-container">
+        
+        
+        
+          
+          <div id="success-bar-vis"></div>
+          <div id="death-bar-vis"></div>      
+          
+          
+            
+              
+      
+      </div>    
+
+  
+  
+  
+  
+  
+    </div>
+
+
+  
+
+  <!-- External scripts -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/d3-simple-slider"></script>
+  
+  <!-- Local scripts -->
+  <script src="static/js/initiate.js"></script>
+  <script src="static/js/updateData.js"></script>
+  <script src="static/js/updateCharts.js"></script>
+  <script src="static/js/slider.js"></script>
+  <script src="static/js/script.js"></script>
+ 
+</body>
+
+</html>
