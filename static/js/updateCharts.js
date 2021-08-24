@@ -99,7 +99,7 @@ function BarChart(data, id) {
 
     // CHART UPDATER
     function updateBarChart(data, yLinearScale, height) {
-        
+        console.log("got here")
         var svg = d3.select(id)
         
         // Update the axis scale

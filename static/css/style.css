@@ -53,6 +53,18 @@ svg .text {
   font-weight: 600;
 }
 
+.legend-label {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+}
+
+svg {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  padding-top: 20px;
+}
+
+
 label {
     font-size: x-large;
     font-weight: 600;

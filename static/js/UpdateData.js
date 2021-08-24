@@ -103,13 +103,15 @@ var death_data = []
             console.log(first_load)
             if (first_load != true) {
                 // Functions both on updateCharts.js
-                crowdingLine(success_data)
+                crowdingLine(success_data, death_data)
 
             }
             else {
-                crowdingLine(success_data)
+                crowdingLine(success_data, death_data)
                 // first_load = false
             }
+            
+        }).then(function() {
             
         })
 
