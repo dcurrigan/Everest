@@ -35,10 +35,17 @@ CREATE TABLE averages (
 	"group" VARCHAR (100),
 	success FLOAT,
 	death FLOAT
-)
+);
+
+CREATE TABLE crowding (
+	climber_count INT PRIMARY KEY,
+	success_avg VARCHAR (100),
+	death_avg VARCHAR (100)
+);
 
 drop table everest
 drop table averages
+drop table crowding
 
 select *
 from everest

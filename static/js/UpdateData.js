@@ -83,16 +83,35 @@ var death_data = []
 
         }).then(function(data) {
 
-            if (first_load != true) {
-                SuccessBarChart(success_data)
-            }
-            else {
-                SuccessBarChart(success_data)
-                first_load = false
-            }
+            // if (first_load != true) {
+            //     // Functions both on updateCharts.js
+            //     BarChart(success_data, "#success-bar-vis")
+            //     BarChart(death_data, "#death-bar-vis")
+
+            // }
+            // else {
+            //     BarChart(success_data, "#success-bar-vis")
+            //     BarChart(death_data, "#death-bar-vis")
+            //     first_load = false
+            // }
+
+            BarChart(success_data, "#success-bar-vis")
+            BarChart(death_data, "#death-bar-vis")
             
 
-        });
+        }).then(function(data) {
+            console.log(first_load)
+            if (first_load != true) {
+                // Functions both on updateCharts.js
+                crowdingLine(success_data)
+
+            }
+            else {
+                crowdingLine(success_data)
+                // first_load = false
+            }
+            
+        })
 
 
 

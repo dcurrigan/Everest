@@ -29,6 +29,7 @@ Base.prepare(engine, reflect=True)
 # Save reference to the table
 Everest = Base.classes.everest
 Averages = Base.classes.averages
+Crowding = Base.classes.crowding
 
 
 #################################################
@@ -296,8 +297,9 @@ def bar():
     result2 = death_model.predict(scaled_list)
     # result3 = crowding_model_success()
 
-    predicted_success = round(result1[0][0]*100,2)
+    predicted_success = result1[0][0]*100
     predicted_death = result2[0][0]*100
+ 
 
     if data[0] == 0:
         query2 = "males"
@@ -341,29 +343,18 @@ def bar():
 
 
 
+@app.route('/api/v1.0/line/')
+def line():
 
-
-
-
-    success_model = load_model("models and scalers/success_model.h5")
-    death_model = load_model("models and scalers/death_model.h5")
-    crowding_model_success = load_model("models and scalers/crowding_model_success.h5")
-    crowding_model_death = load_model("models and scalers/crowding_model_death.h5")
-
-    scaler = joblib.load("models and scalers/data_scaler.pkl")
-    # if (gender == "0" and age == "37"):
+    session = Session(engine)
+  
+    sel = [Crowding.climber_count,Crowding.success_avg, Crowding.death_avg]   
+    result = session.query(*sel).all()
+    session.close()
     
-
-
-
-    # # Retrieve the form contents
-    #     gender = int(request.form.get['gender'])
-        
-
-
-
-
-
+    result = pd.DataFrame(result)
+    
+    return result.to_json(orient = "records") 
 
 
 if __name__ == '__main__':
