@@ -1,11 +1,12 @@
 
 var success_data = []
 var death_data = []
+var age_data = []
+crowding_value = 100
 
  // Create event listeners for the form elements
  d3.select("#gender").on("change", updateData)
  d3.select("#age").on("change", updateData)
- d3.select("#solo").on("change", updateData)
  d3.select("#country").on("change", updateData)
  d3.select("#route").on("change", updateData)
  d3.select("#ascent").on("change", updateData)
@@ -18,19 +19,15 @@ var death_data = []
  d3.select("#leader").on("change", updateData)
  d3.select("#other").on("change", updateData)
  d3.select("#crowding-state").on("change", updateData)
- d3.select("#slider").on("change", updateData)
+ d3.select(".slider").on("change", updateData)
 
 // Function to update the date on change
  function updateData() {
-    console.log("form updated")
-
+   
     // Collect the data from the form 
     gender = d3.select("#gender").property("value")
     age = d3.select("#age").property("value")
-    solo = d3.select("#solo").property("value")
-    // country = d3.select(".country").node().value;
     country = d3.select("#country").property("value")
-    console.log(country)
     route = d3.select("#route").property("value")
     ascent = d3.select("#ascent").property("checked")
     descent = d3.select("#descent").property("checked")
@@ -41,6 +38,7 @@ var death_data = []
             job = (d3.select(item).property("value"))
         };
     });
+    crowding_state = d3.select("#crowding-state").property("checked")
 
     if (route == "other") {
         std_route = false
@@ -56,8 +54,7 @@ var death_data = []
         o2_any = false
     }
 
-    features = [{gender, age, country, solo, route, o2_any, ascent, descent, sleep, std_route, job}]
-    console.log(features)   
+    features = [{gender, age, country, route, o2_any, ascent, descent, sleep, std_route, job, crowding_value,crowding_state, }]
 
     // fetch data for the bar chart 
     fetch(`api/v1.0/bar/`, {
@@ -69,7 +66,7 @@ var death_data = []
     .then(response => { 
         response.json()
         .then(function(data) {
-
+            console.log(data)
             success_data = [{'label':'Your Succuss %','score':data[0]['your_success']},
             {'label':'Avg for Gender', 'score': data[0]['gender_success']},
             {'label':'Avg for age','score':data[0]['age_success']},
@@ -82,44 +79,31 @@ var death_data = []
             
 
         }).then(function(data) {
-
-            // if (first_load != true) {
-            //     // Functions both on updateCharts.js
-            //     BarChart(success_data, "#success-bar-vis")
-            //     BarChart(death_data, "#death-bar-vis")
-
-            // }
-            // else {
-            //     BarChart(success_data, "#success-bar-vis")
-            //     BarChart(death_data, "#death-bar-vis")
-            //     first_load = false
-            // }
-
             BarChart(success_data, "#success-bar-vis")
             BarChart(death_data, "#death-bar-vis")
-            
-
         }).then(function(data) {
-            console.log(first_load)
-            if (first_load != true) {
-                // Functions both on updateCharts.js
-                crowdingLine(success_data, death_data)
-
-            }
-            else {
-                crowdingLine(success_data, death_data)
-                // first_load = false
-            }
-            
-        }).then(function() {
-            
+            crowdingLine(success_data, death_data)
         })
 
-
-
-    })    
-
-
+    })
+    
+    fetch(`api/v1.0/age/`, {
+        method: "POST",
+        body: JSON.stringify(features),
+        cache: "no-cache",
+        headers: new Headers({"content-type": "application/json"})
+    })
+    .then(response => { 
+        response.json()
+        .then(function(data) {
+            console.log(data)
+            ageLineChart(data)
+            
+            // console.log(data)
+        }).then(function(data)  {
+            
+        })
+    })
 
 
 

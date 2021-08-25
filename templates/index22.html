@@ -45,12 +45,6 @@
             <label for="age">Age</label>
             <input id=age type="number" name=age min="0" step="1" value=37><br>
 
-            <label for="solo">Solo Attempt </label>
-              <select name="solo" id="solo">
-                <option value="True">Yes</option>
-                <option value="False">No</option>
-              </select>
-            <br>
 
             <label for="country">Country</label>
               <select name="country" id="country">
@@ -94,7 +88,7 @@
               </label>
 
 
-            <div id="slider"></div>
+            <div class="test" id="slider"></div>
             
             <button type="submit" id="get-model">Submit</button>
             
@@ -111,6 +105,8 @@
           <div id="death-bar-vis"></div> 
           
           <svg id="crowding-line-vis" width="1200" height="700"></svg>
+          <svg id="age-success-line-vis" width="800" height="700"></svg>
+          <svg id="age-death-line-vis" width="800" height="700"></svg>
 
                
           
@@ -136,10 +132,10 @@
   
   <!-- Local scripts -->
   <script src="static/js/initiate.js"></script>
-
   <script src="static/js/updateData.js"></script>
   <script src="static/js/updateCharts.js"></script>
   <script src="static/js/crowdingLine.js"></script>
+  <script src="static/js/ageLine.js"></script>
   <script src="static/js/slider.js"></script>
   <script src="static/js/script.js"></script>
  

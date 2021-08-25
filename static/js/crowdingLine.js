@@ -202,7 +202,7 @@ function crowdingLine(success_dict, death_dict) {
                 .style("font-size", "13px")
                 .text("Your Risk Death (%)");           
 
-            first_load = false
+            
         }
 
 

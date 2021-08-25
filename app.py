@@ -241,23 +241,39 @@ def bar():
     data = request.get_json()
 
     # Load the models and scaler
-    success_model = load_model("models and scalers/success_model.h5")
-    death_model = load_model("models and scalers/death_model.h5")
+    normal_model_success = load_model("models and scalers/success_model.h5")
+    normal_model_death = load_model("models and scalers/death_model.h5")
     crowding_model_success = load_model("models and scalers/crowding_model_success.h5")
     crowding_model_death = load_model("models and scalers/crowding_model_death.h5")
 
-    scaler = joblib.load("models and scalers/data_scaler.pkl")
-
-     # # crowding_state = data[0]('crowding-state')
+    normal_scaler = joblib.load("models and scalers/data_scaler.pkl")
+    crowding_scaler = joblib.load("models and scalers/crowding_scaler.pkl")
+   
+    # convert json data to list
     data = list(data[0].values())
+
+    # Retrieve whether crowding state is activate and get its value
+    crowding_state = data[11]
+    crowding_value = data[10]
+    
+    # Set the models then remove the crowding state from list
+    if crowding_state == True:
+        data = data[0:11]
+        success_model = crowding_model_success
+        death_model = crowding_model_death
+        scaler = crowding_scaler
+    else:
+        data = data[0:10]
+        success_model = normal_model_success
+        death_model = normal_model_death
+        scaler = normal_scaler
+    
+    # convert gender (0=male, 1=female) and age to int
     data[0] = int(data[0])
     data[1] = int(data[1])
-    if data[3] == 'True':
-        data[3] = True
-    else:
-        data[3] = False
-    
-    # Set the query string for the bar graph data request
+
+
+    # Set the query strings for the bar graph data request
     if data[1] <20:  
         query1 = "under 20"
     elif (data[1] >= 20) and (data[1] < 30):
@@ -270,6 +286,11 @@ def bar():
         query1 = "50 - 60"
     elif data[1] > 60:
         query1 = "over 60"
+   
+    if data[0] == 0:
+        query2 = "males"
+    else:
+        query2 = "females"
     
     # convert booleans to binary
     def bool_to_binary(val):
@@ -278,34 +299,28 @@ def bar():
         elif val == False:
             return  0
     
-    data[3] = bool_to_binary(data[3])
+    data[4] = bool_to_binary(data[4])
     data[5] = bool_to_binary(data[5])
     data[6] = bool_to_binary(data[6])
     data[7] = bool_to_binary(data[7])
     data[8] = bool_to_binary(data[8])
-    data[9] = bool_to_binary(data[9])
 
+    # map the route, country and job selections to their corresponging numbers 
     data[2] = country_label_map[data[2]]
-    data[4] = route_label_map[data[4]]
-    data[10] = status_label_map[data[10]]
+    data[3] = route_label_map[data[3]]
+    data[9] = status_label_map[data[9]]
 
+    # scale the data
     scaled_list = scaler.transform([data])
 
     # Run the model on the input data
     np.array(scaled_list)
-    result1 = success_model.predict(scaled_list)
-    result2 = death_model.predict(scaled_list)
-    # result3 = crowding_model_success()
+    success_result = success_model.predict(scaled_list)
+    death_result = death_model.predict(scaled_list)
 
-    predicted_success = result1[0][0]*100
-    predicted_death = result2[0][0]*100
+    predicted_success = success_result[0][0]*100
+    predicted_death = death_result[0][0]*100
  
-
-    if data[0] == 0:
-        query2 = "males"
-    else:
-        query2 = "females"
-
     # Retrieve the comaprison data
     session = Session(engine)
     compariason_data = pd.read_sql("SELECT * FROM averages", conn).reset_index()
@@ -315,21 +330,9 @@ def bar():
     gender_data = compariason_data[compariason_data['group'] == query2 ]
     overall_data = compariason_data[compariason_data['group'] == 'overall' ]
 
-    crowding_state = 1
-    
+      
     # Fill the bar chart data based on whether crowding model is activated or not
-    if crowding_state > 0: 
-        bar_data = [{'your_success':predicted_success,
-                    'your_death': predicted_death,
-                    'gender_success': gender_data.iloc[0,3],
-                    'gender_death': gender_data.iloc[0,4],
-                    'age_success': age_data.iloc[0,3],
-                    'age_death': gender_data.iloc[0,4],
-                    'overall_success': overall_data.iloc[0,3],
-                    'overall_death': gender_data.iloc[0,4]
-                    }]
-    else: 
-        bar_data = [{ 'your_success':predicted_success,
+    bar_data = [{'your_success':predicted_success,
                     'your_death': predicted_death,
                     'gender_success': gender_data.iloc[0,3],
                     'gender_death': gender_data.iloc[0,4],
@@ -356,6 +359,77 @@ def line():
     
     return result.to_json(orient = "records") 
 
+
+@app.route('/api/v1.0/age/', methods=['GET', 'POST'])
+def age():
+      
+    data = request.get_json()
+
+    # Load the models and scaler
+    normal_model_success = load_model("models and scalers/success_model.h5")
+    normal_model_death = load_model("models and scalers/death_model.h5")
+    crowding_model_success = load_model("models and scalers/crowding_model_success.h5")
+    crowding_model_death = load_model("models and scalers/crowding_model_death.h5")
+
+    normal_scaler = joblib.load("models and scalers/data_scaler.pkl")
+    crowding_scaler = joblib.load("models and scalers/crowding_scaler.pkl")
+   
+    # convert json data to list
+    data = list(data[0].values())
+
+    # Retrieve whether crowding state is activate and get its value
+    crowding_state = data[11]
+    crowding_value = data[10]
+    
+    # Set the models then remove the crowding state from list
+    if crowding_state == True:
+        data = data[0:11]
+        success_model = crowding_model_success
+        death_model = crowding_model_death
+        scaler = crowding_scaler
+    else:
+        data = data[0:10]
+        success_model = normal_model_success
+        death_model = normal_model_death
+        scaler = normal_scaler
+    
+    # convert gender (0=male, 1=female) and age to int
+    data[0] = int(data[0])
+    data[1] = int(data[1])
+      
+    # convert booleans to binary
+    def bool_to_binary(val):
+        if val == True:
+            return 1
+        elif val == False:
+            return  0
+    
+    data[4] = bool_to_binary(data[4])
+    data[5] = bool_to_binary(data[5])
+    data[6] = bool_to_binary(data[6])
+    data[7] = bool_to_binary(data[7])
+    data[8] = bool_to_binary(data[8])
+
+    # map the route, country and job selections to their corresponging numbers 
+    data[2] = country_label_map[data[2]]
+    data[3] = route_label_map[data[3]]
+    data[9] = status_label_map[data[9]]
+
+
+    age_df = pd.DataFrame()
+    for age in range(15,71):
+        data[1] = age
+        scaled_list = scaler.transform([data])
+        np.array(scaled_list)
+        success_result = success_model.predict(scaled_list)
+        death_result = death_model.predict(scaled_list)
+        
+        age_df.loc[age, 'age'] = age
+        age_df.loc[age, 'success'] = success_result[0][0]*100
+        age_df.loc[age, 'death'] = death_result[0][0]*100
+
+
+    return age_df.to_json(orient="records")
 
 if __name__ == '__main__':
     app.run(port=5500, debug=True)

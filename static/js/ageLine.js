@@ -1,277 +1,266 @@
 
 
 
-function crowdingLine(success_dict, death_dict) {
+function ageLineChart(data) {
 
-    d3.json('/api/v1.0/line/').then(function(data) {
-       
+    data.forEach(d => {
+        if (d.death < 0.1) {
+            d.death = 1        }  
+    });
     
-        // Convert to numeric
-        data.forEach(d => {
-            d[1] = +d[1]
-            d[2] = +d[2]
-        })
+    const svgArea = d3.select("#crowding-line-vis")
 
-        // Remove outliers apply smoothing 
-        success_previous = 0
-        death_previous = 0 
-        data.forEach(d => {
-            if ((Math.abs(d[1]-success_previous)) > 23) {
-                d[1] = success_previous
-            }
-            else {
-                success_previous = d[1]
-            } 
-            if ((Math.abs(d[2]-death_previous)) > 10) {
-                d[2] = death_previous
-            }
-            else {
-                death_previous = d[2]
-            } 
+    // If empty create the charts, otherwise update them
+    if (!svgArea.empty() & first_load != true) {
+        updateLineChart(data)
+    } else {
+        initiateFirstLineChart(data)
+        initiateSecondLineChart(data)
+    }
+    
+             
 
-        })
+    function initiateFirstLineChart(data) {
+        
+        var margin = {top: 10, right: 10, bottom: 20, left: 40},
+        width = 400 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom;       
 
-       
-        const svgArea = d3.select("#crowding-line-vis")
-
-        // If empty create the charts, otherwise update them
-        if (!svgArea.empty() & first_load != true) {
-            updateLineChart(data)
-
-        } else {
-            initiateLineChart(data)
+        var xLinearScale = d3.scaleLinear()
+            .domain([15,70])
+            .range([0, width])
+    
+        // set the max value for the y-axis
+        max = d3.max(data, d => d.success) + 5
+        if (max > 100) {
+            max = 100
         }
-        
-        svg = d3.select("#crowding-line-vis")
-        
-        
+   
+        var yLinearScale = d3.scaleLinear()
+            .domain([0, max])
+            .range([height, 0])
 
-        function initiateLineChart() {
+
+        xaxis = d3.axisBottom().scale(xLinearScale)
+        yaxis = d3.axisLeft().scale(yLinearScale)
+
+        var svg = d3.select("#age-success-line-vis")
+        
+        svg.append("svg")
+            .attr('width', width + margin.left + margin.right)
+            .attr('height', height + margin.top + margin.bottom)
+            .append('g')
+            .attr("transform", `translate(${margin.left}, ${margin.top})`)
+
+        svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(40," + (height+margin.top) + ")")
+            .call(xaxis);
+    
+        svg.append("g")
+            .attr("class", "success-y-axis")
+            .attr("transform", "translate("+ [margin.left, margin.top] +")")
+            .call(yaxis)
+
+
+        colours = ['#fe8a71','#0e9aa7','#3da4ab', '#f6cd61']
+
+        success_line = svg.append("path")
+                    .datum(data)
+                    .attr("class", "age-success-line")
+                    .attr("fill", "none")
+                    .attr("stroke", "#0e9aa7")
+                    .attr("stroke-width", 1.5)
+                    .attr("class", "age-success-line")
+                    .merge(svg)
+                    .transition()
+                    .duration(1000)
+                    .attr("d", d3.line()
+                        .x(d =>(xLinearScale(d.age)+margin.left))
+                        .y(d => (yLinearScale(d.success)+margin.top)))
+                    
+
+        svg.append("text")
+            .attr("transform", `translate(${(width / 2)+20}, ${height + 43 })`)   
+            .attr("class", "axis-label")
+            .style("font-size", "14px")
+            .text("Age") 
             
-            var margin = {top: 10, right: 10, bottom: 20, left: 40},
-            width = 800 - margin.left - margin.right,
-            height = 400 - margin.top - margin.bottom;           
+        svg.append("text")
+        .attr("transform", `translate(10, ${(height / 2)+70}) rotate(-90)`)
+        .attr("class", "axis-label")
+        .style("font-size", "14px")
+        .text("Chance of Success (%)");
 
-            var xLinearScale = d3.scaleLinear()
-                .domain([0, d3.max(data, d => d[0])])
-                .range([0, width])
+      
+
+        first_load = false
+    }
+
+    function initiateSecondLineChart(data) {
         
-            var successLinearScale = d3.scaleLinear()
-                .domain([0, 100])
-                .range([height, 0])
+        var margin = {top: 10, right: 10, bottom: 20, left: 40},
+        width = 400 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom;       
+
+        var xLinearScale = d3.scaleLinear()
+            .domain([15,70])
+            .range([0, width])
+    
+        var yLinearScale = d3.scaleLinear()
+            .domain([0, (d3.max(data, d => d.death)+1)])
+            .range([height, 0])
 
 
-            var deathLinearScale = d3.scaleLinear()
-                .domain([0, d3.max(data, d => d[2])])
-                .range([height+margin.top, 0])
+        xaxis = d3.axisBottom().scale(xLinearScale)
+        yaxis = d3.axisLeft().scale(yLinearScale).ticks(8)
 
-            xaxis = d3.axisBottom().scale(xLinearScale)
-            yaxis = d3.axisLeft().scale(successLinearScale)
-            zaxis = d3.axisRight().scale(deathLinearScale)
-
-            svg = d3.select("#crowding-line-vis")
-            
-            svg.append("svg")
-                .attr('width', width + margin.left + margin.right)
-                .attr('height', height + margin.top + margin.bottom)
-                .append('g')
-                .attr("transform", `translate(${margin.left}, ${margin.top})`)
-
-            svg.append("g")
-                .attr("class", "axis")
-                .attr("transform", "translate(40," + (height+margin.top) + ")")
-                .call(xaxis);
+        svg = d3.select("#age-death-line-vis")
         
-            svg.append("g")
-                .attr("class", "axis")
-                .attr("transform", "translate("+ [margin.left, margin.top] +")")
-                .call(yaxis)
+        svg.append("svg")
+            .attr('width', width + margin.left + margin.right)
+            .attr('height', height + margin.top + margin.bottom)
+            .append('g')
+            .attr("transform", `translate(${margin.left}, ${margin.top})`)
 
-            svg.append("g")
-                .attr("class", "axis")
-                .attr("transform", "translate("+ [(width+margin.left), 0] +")")
-                .call(zaxis);
+        svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(40," + (height+margin.top) + ")")
+            .call(xaxis);
+    
+        svg.append("g")
+            .attr("class", "death-y-axis")
+            .attr("transform", "translate("+ [margin.left, margin.top] +")")
+            .call(yaxis)
 
-            colours = ['#fe8a71','#0e9aa7','#3da4ab', '#f6cd61']
+        
+        colours = ['#fe8a71','#0e9aa7','#3da4ab', '#f6cd61']
 
-            success_line = svg.append("path")
-                        .datum(data)
-                        .attr("fill", "none")
-                        .attr("stroke", "#0e9aa7")
-                        .attr("stroke-width", 1.5)
-                        .attr("d", d3.line()
-                            .x(function(d) {                   
-                                return (xLinearScale(d[0])+ margin.left)})
-                            .y(function(d) { 
-                                return successLinearScale(d[1]) })
-                                .curve(d3.curveBasis)
-                        )
 
-            death_line = svg.append("path")
+        success_line = svg.append("path")
             .datum(data)
             .attr("fill", "none")
             .attr("stroke", "#f6cd61")
             .attr("stroke-width", 1.5)
+            .attr("class", "age-death-line")
             .attr("d", d3.line()
-                .x(function(d) {                   
-                    return (xLinearScale(d[0])+ margin.left)})
-                .y(function(d) { return deathLinearScale(d[2])})
-                .curve(d3.curveBasis)
-            )
-                
-            svg.append("circle").attr("cx",855).attr("cy",30).attr("r", 6).style("fill", "#0e9aa7")
-            svg.append("circle").attr("cx",855).attr("cy",60).attr("r", 6).style("fill", "#f6cd61")
-            svg.append('line').attr("x1", 847).attr("x2", 863).attr("y1", 90).attr("y2", 90)
-                .attr("class", "result-line").style("stroke-width", 1.5).style("stroke", "#fe8a71")
-                .style("stroke-dasharray", ("3, 3"))
+                .x(d =>(xLinearScale(d.age)+margin.left))
+                .y(d => (yLinearScale(d.death)+margin.top)))
+        
 
-            svg.append("text").attr("x", 890).attr("y", 30).attr("class", "legend-label").text("Success %").style("font-size", "15px").attr("alignment-baseline","middle")
-            svg.append("text").attr("x", 890).attr("y", 60).attr("class", "legend-label").text("Death %").style("font-size", "15px").attr("alignment-baseline","middle")
-            svg.append("text").attr("x", 890).attr("y", 90).attr("class", "legend-label").text("Your Scores").style("font-size", "15px").attr("alignment-baseline","middle")
-
-
-            svg.append("text")
-                .attr("transform", `translate(${(width / 2) - margin.left}, ${height + 50 })`)   
-                .attr("class", "axis-label")
-                .text("Number of Climbers") 
-                
-            svg.append("text")
-            .attr("transform", `translate(10, ${(height / 2)+78}) rotate(-90)`)
+        svg.append("text")
+            .attr("transform", `translate(${(width / 2)+20}, ${height + 43 })`)   
             .attr("class", "axis-label")
             .style("font-size", "14px")
-            .text("Summit Success Rate (%)");
-
-            svg.append("text")
-            .attr("transform", `translate(${width + margin.left +23}, ${(height / 2)-25}) rotate(90)`)
-            .attr("class", "axis-label")
-            .style("font-size", "14px")
-            .text("Death Rate (%)");
-                        
+            .text("Age") 
             
-            success_horizontal = svg.append('line')
-             .attr("x1", 40)
-             .attr("x2", width+40)
-             .attr("y1", (successLinearScale(success_dict[0]['score'])+margin.top))
-             .attr("y2", (successLinearScale(success_dict[0]['score'])+margin.top))
-             .attr("class", "success-result-line")
-             .style("stroke-width", 1.5)      
-             .style("stroke", "#fe8a71")
-             .style("stroke-dasharray", ("3, 3"))
+        svg.append("text")
+        .attr("transform", `translate(10, ${(height / 2)+70}) rotate(-90)`)
+        .attr("class", "axis-label")
+        .style("font-size", "14px")
+        .text("Risk of Death (%)");
 
-             
-             
-            //  Adjust the line/text height for very low risk values 
-            if ((deathLinearScale(death_dict[0]['score']) < (height+ margin.top))) {
-                line_height = height + margin.top
-                text_height = height + margin.top - 8
-            }
-            else {
-                line_height = deathLinearScale(death_dict[0]['score']) + margin.top
-                text_height = deathLinearScale(death_dict[0]['score']) + margin.top - 8
-            }
-
-            if (success_dict[0]['score'] > 90) {
-                adjustment_factor  = -20
-            } 
-            else {
-                adjustment_factor  = 8
-            }
-             
-             
-             
-            death_horizontal = svg.append('line')
-                .attr("x1", 40)
-                .attr("x2", width+40)
-                .attr("y1", line_height)
-                .attr("y2", line_height)
-                .attr("class", "death-result-line")
-                .style("stroke-width", 1.5)      
-                .style("stroke", "#fe8a71")
-                .style("stroke-dasharray", ("3, 3"))
-
-            svg.append("text")
-                .attr("transform", `translate(${(width-margin.left-25)}, ${successLinearScale(success_dict[0]['score'])+margin.top - adjustment_factor })`) 
-                .attr("class", "success-personal-label")
-                .style("font-size", "13px")
-                .text("Your Success (%)");
-
-               
-            svg.append("text")
-                .attr("transform", `translate(${(width-margin.left-38)}, ${text_height})`)                                    
-                .attr("class", "death-personal-label")
-                .style("font-size", "13px")
-                .text("Your Risk Death (%)");           
-
-            first_load = false
-        }
+        first_load = false
+    }
 
 
 
 
 
-        function updateLineChart() {
-            
-            var margin = {top: 10, right: 10, bottom: 20, left: 40},
-            width = 800 - margin.left - margin.right,
-            height = 400 - margin.top - margin.bottom;           
-       
-            var successLinearScale = d3.scaleLinear()
-                .domain([0, 100])
-                .range([height, 0])
-
-            var deathLinearScale = d3.scaleLinear()
-                .domain([0, d3.max(data, d => d[2])])
-                .range([height+margin.top, 0])
-            
-            var svg = d3.select("#crowding-line-vis")
-            
-            svg.select(".success-result-line")
-            .transition()
-            .duration(1000)
-            .attr("x1", 40)
-            .attr("x2", width+40)
-            .attr("y1", (successLinearScale(success_dict[0]['score'])+margin.top))
-            .attr("y2", (successLinearScale(success_dict[0]['score'])+margin.top)) 
-
-
-            line_height = deathLinearScale(death_dict[0]['score'])
-            text_height = deathLinearScale(death_dict[0]['score']) - 8
-
-
-            if (success_dict[0]['score'] > 90) {
-                adjustment_factor  = -20
-            } 
-            else {
-                adjustment_factor  = 8
-            }
-
-
-
-            svg.select(".death-result-line")
-            .transition()
-            .duration(1000)
-                .attr("x1", 40)
-                .attr("x2", width+40)
-                .attr("y1", line_height)
-                .attr("y2", line_height)
-
-            svg.select(".success-personal-label")
-                .transition()
-                .duration(1000)
-                .attr("transform", `translate(${(width-margin.left-25)}, ${successLinearScale(success_dict[0]['score'])+margin.top - adjustment_factor })`)   
-
-            svg.select(".death-personal-label")
-            .transition()
-            .duration(1000)
-            .attr("transform", `translate(${(width-margin.left-38)}, ${text_height})`)   
-
+    function updateLineChart() {
+        
 
         
+        var margin = {top: 10, right: 10, bottom: 20, left: 40},
+        width = 400 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom;       
+
+        var xLinearScale = d3.scaleLinear()
+            .domain([15,70])
+            .range([0, width])
+    
+
+        // First transition the age/success elements 
+        svg = d3.select("#age-success-line-vis")
+
+        console.log((d3.max(data, d => d.success)))
+        // set the max value for the y-axis
+        max = d3.max(data, d => d.success) + 5
+        if (max > 100) {
+            max = 100
         }
+   
+        // create the scale and y-axis
+        var yLinearScale = d3.scaleLinear()
+            .domain([0, max])
+            .range([height, 0])
+
+        y_axis = d3.axisLeft().scale(yLinearScale)
+
+        // transition the y-axis
+        svg.select(".success-y-axis")
+            .transition()
+            .duration(1000)
+            .call(y_axis) 
+
+        // update the dataset
+        svg.select(".age-success-line")
+            .datum(data)
+
+        // set the new values for the line path
+        var line = d3.line()
+            .x(d =>(xLinearScale(d.age)+margin.left))
+            .y(d => (yLinearScale(d.success)+margin.top))
+
+        // create a transition object of duration 1sec 
+        var trans = svg.transition().duration(1000);
+
+        // transition the line points
+        trans.selectAll(".age-success-line")
+        .attr("d", line)
+
+        // Now transition the age/death elements 
+        svg = d3.select("#age-death-line-vis")
+
+        console.log((d3.max(data, d => d.death)))
+        // create the scale and y-axis
+        yLinearScale = d3.scaleLinear()
+            .domain([0, (d3.max(data, d => d.death)+1)])
+            .range([height, 0])
+
+        y_axis = d3.axisLeft().scale(yLinearScale)
+
+        // transition the y-axis
+        svg.select(".death-y-axis")
+            .transition()
+            .duration(1000)
+            .call(y_axis) 
+
+        // update the dataset
+        svg.select(".age-death-line")
+            .datum(data)
+
+        // set the new values for the line path
+        line = d3.line()
+            .x(d =>(xLinearScale(d.age)+margin.left))
+            .y(d => (yLinearScale(d.death)+margin.top))
+
+        // create a transition object of duration 1sec 
+        trans = svg.transition().duration(1000);
+
+        // transition the line points
+        trans.selectAll(".age-death-line")
+        .attr("d", line)
+
+
+
+
+    
+    }
     
     
     
-    })
+    // })
     
 
 

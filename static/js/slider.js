@@ -3,14 +3,15 @@
 var slider = d3
     .sliderBottom()
     .min(100)
-    .max(800)
-    .step(200)
+    .max(400)
+    .step(100)
     .width(300)
-    .ticks(5)
+    .ticks(4)
     .default(100)
     .displayValue(false)
     .on('onchange', num => {
-        console.log(num)
+        crowding_value = num
+        updateData()
     });
 
 d3.select('#slider')
