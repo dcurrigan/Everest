@@ -18,6 +18,89 @@ width: 100%;
 z-index: 4000;
 }
 
+.navbar .brand {
+  display: block;
+  color: #e7e7e7;
+ /* Remove padding from top/bottom and add 24px padding right/left */
+  padding: 0 24px;
+  font-size: 24px;
+}
+
+.navbar ul li a {
+  color: #e7e7e7;
+  padding: 24px;
+  display: block;
+}
+
+/* When a usee hovers or focuses to a link change the background */
+.navbar ul a:hover,
+.navbar ul a:focus {
+  background-color: #272727;
+}
+
+
+a {
+  text-decoration: none;
+}
+
+.navbar {
+  background-color: #333333;
+  /* display: flex; */
+  /* let's align the items so everything is nice and centered */
+  align-items: center;
+  z-index: 9999;
+}
+
+/* We want all links in the navbar to be #e7e7e7 */
+.navbar a {
+  color: #e7e7e7;
+}
+
+.navbar ul {
+ /* Let's reset the margin and padding of the list so it's is flush. */
+  margin: 0;
+  padding: 0;
+  /* Let's remove the bullet points */
+  list-style-type: none;
+  /* display the list flex and align the items centered */
+  /* display: flex; */
+  align-items:center;
+}
+
+.navbar .brand {
+  /*Let's make the anchor display block.
+     This will ensure when we get the full width of the container.
+  */
+  display: block;
+  color: #e7e7e7;
+ /* Remove padding from top/bottom and add 24px padding right/left */
+  padding: 0 24px;
+  font-size: 24px;
+}
+
+.navbar ul li a {
+  color: #e7e7e7;
+  padding: 24px;
+  /*Let's make the anchor display block.
+     This will ensure when we hover, focus, or is active we get the full width and height 
+      of the container.
+  */
+  display: block;
+}
+
+/* When a use hovers or focuses a link change the background */
+.navbar ul a:hover,
+.navbar ul a:focus {
+  background-color: #272727;
+}
+
+.navbar ul a:hover,
+.navbar ul a:focus,
+.navbar ul .active {
+  background-color: #272727;
+}
+
+
 .form-container {
   position: relative;
   margin-left: 50px; 
@@ -32,6 +115,12 @@ z-index: 4000;
   padding: 40px;
   padding-top: 20px;
 
+}
+
+.form-item-holder {
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
 }
 
 .vis-container {
@@ -66,6 +155,22 @@ z-index: 4000;
 .main-header {
   font-size: 30pt;
   font-weight: 700;
+  background-color: #ffffff;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 10px;
+  padding-right: 40px;
+}
+
+.sub-header {
+  margin-top: 10px;
+  background-color: #ffffff;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 10px;
+  font-size: 20pt;
+  padding-left: 20px;
+  padding-right: 40px;
 }
 
 #slider {
@@ -89,17 +194,36 @@ padding-left: 30px;
 }
 
 .vis-header {
+  display: inline-block;
   text-align: center;
   line-height: 1.4em;
   margin: 10px;
   margin-bottom: 0px;
   font-size: 20pt;
   font-weight: 600;
-  border-radius: 4px;
+  border-radius: 7px;
   background-color: #adcbe3;
   padding-top: 5px;
   padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
+
+.vis-header-age {
+  text-align: center;
+  line-height: 1.4em;
+  margin: 10px;
+  margin-bottom: 0px;
+  font-size: 20pt;
+  font-weight: 600;
+  border-radius: 7px;
+  background-color: #adcbe3;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  /* padding-left: 20px;
+  padding-right: 20px; */
+}
+
 
 
 input, select{
@@ -167,8 +291,8 @@ padding-top: 20px;
 input[type=checkbox]
 {
 /* Double-sized Checkboxes */
--webkit-transform: scale(2); /* Safari and Chrome */
-transform: scale(2);
+-webkit-transform: scale(1.5); /* Safari and Chrome */
+transform: scale(1.5);
 padding: 10px;
 }
 

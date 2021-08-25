@@ -27,9 +27,31 @@
 </head>
 
 <body>
-  
+
+
+
   <div id="map"></div>
   
+  <div id="section1-wrapper" class="wrapper">
+    <div id="map"></div>
+  </div>
+  <div id="section2-wrapper" class="wrapper">
+    
+    <nav class="navbar">
+      <a class="brand" href="#">RS</a>
+      <ul>
+        <li>
+          <a class="active" href="#">About</a>
+        </li>
+        <li>
+          <a href="#">Profile</a>
+        </li>
+        <li>
+          <a href="#">Contact</a>
+        </li>
+      </ul>
+    </nav>
+    
     <div class="grid-container">
 
       <div class="grid-child form-container">
@@ -39,86 +61,94 @@
             
             
             <br>
-            <label class="main-header"><strong>Enter Demographics</strong></label><hr><br>
-            
-            <label for="gender" style="word-wrap:break-word">
-              <select name="gender" id="gender">
-                <option value="0">Male</option>
-                <option value="1">Female</option>
-              </select> Gender
-            </label>
+              <label class="main-header"><strong>Enter Demographics</strong></label><br>
+              
+            <div class="form-item-holder">  
+              <label for="gender" style="word-wrap:break-word">
+                <select name="gender" id="gender">
+                  <option value="0">Male</option>
+                  <option value="1">Female</option>
+                </select> Gender
+              </label>
+              <br>
+
+              <label for="age" style="word-wrap:break-word">
+                <input id=age type="number" name=age min="0" step="1" value=37> Age
+              </label>
+
+              <label for="country" style="word-wrap:break-word">
+                <select name="country" id="country">
+                </select> Country
+              </label>   
+              <br>
+
+              <label for="route" style="word-wrap:break-word">
+                <select name="route" id="route">
+                  <option value="North">Northeast Ridge</option>
+                  <option value="South">Southeast Ridge</option>
+                  <option value="Other">Other</option>
+                </select> Route
+              </label>
+              <br>
+            </div>
+
+
             <br>
+            <label class="sub-header" for="oxygen"><strong>Oxygen Use</strong></label>
 
-            <label for="age" style="word-wrap:break-word">
-              <input id=age type="number" name=age min="0" step="1" value=37> Age
-            </label>
-
-            <label for="country" style="word-wrap:break-word">
-              <select name="country" id="country">
-              </select> Country
-            </label>   
-            <br>
-
-            <label for="route" style="word-wrap:break-word">
-              <select name="route" id="route">
-                <option value="North">Northeast Ridge</option>
-                <option value="South">Southeast Ridge</option>
-                <option value="Other">Other</option>
-              </select> Route
-            </label>
-            <br>
-
-            <br>
-            <label for="oxygen"><strong>Oxygen Use</strong></label><hr>
-
-            <label for="oxygen" style="word-wrap:break-word">
-              <input type="checkbox" name="ascent" id="ascent" value="True">For Ascent
-            </label><br>
-            
-            <label for="oxygen" style="word-wrap:break-word">
-              <input type="checkbox" name="descent" id="descent" value="True">For Descent
-            </label><br>
-            
-            <label for="oxygen" style="word-wrap:break-word">            
-              <input type="checkbox" name="sleep" id="sleep" value="True">While Sleeping
-            </label><br>
+            <div class="form-item-holder">
+              <label for="oxygen" style="word-wrap:break-word">
+                <input type="checkbox" name="ascent" id="ascent" value="True">For Ascent
+              </label><br>
+              
+              <label for="oxygen" style="word-wrap:break-word">
+                <input type="checkbox" name="descent" id="descent" value="True">For Descent
+              </label><br>
+              
+              <label for="oxygen" style="word-wrap:break-word">            
+                <input type="checkbox" name="sleep" id="sleep" value="True">While Sleeping
+              </label><br>
+            </div>
             
             
                         
             <br>
-            <label for="job"><strong>Expedition Role</strong></label><hr>
-            <label for="climber" style="word-wrap:break-word">
-              <input type="radio" name="job" id="climber" value="Climber" checked="checked">Climber
-            </label><br>
-            <label for="cook" style="word-wrap:break-word">
-              <input type="radio" name="job" id="cook" value="Cook">Cook
-            </label><br>
-            <label for="doctor" style="word-wrap:break-word">
-              <input type="radio" name="job" id="doctor" value="Doctor">Doctor
-            </label><br>
-            <label for="deputy" style="word-wrap:break-word">
-              <input type="radio" name="job" id="deputy" value="Deputy">Deputy
-            </label><br>
-            <label for="leader" style="word-wrap:break-word">
-              <input type="radio" name="job" id="leader" value="Leader">Leader
-            </label><br>
-            <label for="other" style="word-wrap:break-word">
-              <input type="radio" name="job" id="other" value="Other">Other
-            </label><br>
+            <label class="sub-header" for="job"><strong>Expedition Role</strong></label>
+            <div class="form-item-holder">
+              <label for="climber" style="word-wrap:break-word">
+                <input type="radio" name="job" id="climber" value="Climber" checked="checked">Climber
+              </label><br>
+              <label for="cook" style="word-wrap:break-word">
+                <input type="radio" name="job" id="cook" value="Cook">Cook
+              </label><br>
+              <label for="doctor" style="word-wrap:break-word">
+                <input type="radio" name="job" id="doctor" value="Doctor">Doctor
+              </label><br>
+              <label for="deputy" style="word-wrap:break-word">
+                <input type="radio" name="job" id="deputy" value="Deputy">Deputy Leader
+              </label><br>
+              <label for="leader" style="word-wrap:break-word">
+                <input type="radio" name="job" id="leader" value="Leader">Expedition Leader
+              </label><br>
+              <label for="other" style="word-wrap:break-word">
+                <input type="radio" name="job" id="other" value="Other">Other
+              </label><br>
+            </div>
               
             <br>
-            <label for="job"><strong>Crowding Model</strong></label><hr>
+            <label class="sub-header" for="job"><strong>Crowding Model</strong></label>
 
-            <h3 class="slider-title">Number of Hikers</h3>
-            <div id="slider"></div>
-            
+            <div class="form-item-holder">
+              <h3 class="slider-title">Number of Hikers</h3>
+              <div id="slider"></div>
+              
 
-            <label for="crowding-state" class="switch" style="word-wrap:break-word">
-              <input id="crowding-state" name="crowding-state" type="checkbox" value="True">
-              <span class="slider round"></span>
-            </label>
-            <label class="activate-label">Activate Crowding Model</label>
-
+              <label for="crowding-state" class="switch" style="word-wrap:break-word">
+                <input id="crowding-state" name="crowding-state" type="checkbox" value="True">
+                <span class="slider round"></span>
+              </label>
+              <label class="activate-label">Activate Crowding Model</label>
+            </div>
             
             
             
@@ -143,18 +173,18 @@
         </div>
 
         <div class="vis-tub" >
-          <h1 class="vis-header"><strong>Climber numbers and Your Chance of Success / Risk of Death</strong></h1>
+          <h1 class="vis-header"><strong>Number of Climbers and your chance of <i>Success</i> / risk of <i>Death</i></strong></h1>
           <svg class="vis-tub" id="crowding-line-vis" width="1000" height="450"></svg>
         </div>
 
         <div class="vis-tub" >
-          <h1 class="vis-header"><strong>Change in predicted<br>
+          <h1 class="vis-header-age"><strong>Change in predicted<br>
                                          <i>success</i> with Increasing Age</strong></h1>
           <svg class="vis-tub" id="age-success-line-vis" width="420" height="340"></svg>
         </div>
 
         <div class="vis-tub" >
-          <h1 class="vis-header"><strong>Change in predicted risk of <br>
+          <h1 class="vis-header-age"><strong>Change in predicted risk of <br>
             <i>death</i> with Increasing Age</strong></h1>
           <svg class="vis-tub" id="age-death-line-vis" width="420" height="340"></svg>
         </div>
@@ -165,13 +195,25 @@
               
       
       </div>    
+    
+    
+    
+    </div>
+
+  </div>
+
+
+
+
+
+    
       
   
   
   
   
   
-    </div>
+</div>
 
 
   
