@@ -71,7 +71,7 @@ crowding_value = 100
             {'label':'Avg for age','score':data[0]['age_success']},
             {'label':'Overall Average', 'score':data[0]['overall_success']}]
 
-            death_data =   [{'label':'Your risk of Death %','score':data[0]['your_death']},
+            death_data =   [{'label':'Your Risk %','score':data[0]['your_death']},
             {'label':'Avg for Gender', 'score': data[0]['gender_death']},
             {'label':'Avg for age','score':data[0]['age_death']},
             {'label':'Overall Average', 'score':data[0]['overall_death']}]
