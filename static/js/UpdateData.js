@@ -66,7 +66,6 @@ crowding_value = 100
     .then(response => { 
         response.json()
         .then(function(data) {
-            console.log(data)
             success_data = [{'label':'Your Succuss %','score':data[0]['your_success']},
             {'label':'Avg for Gender', 'score': data[0]['gender_success']},
             {'label':'Avg for age','score':data[0]['age_success']},
@@ -96,10 +95,7 @@ crowding_value = 100
     .then(response => { 
         response.json()
         .then(function(data) {
-            console.log(data)
             ageLineChart(data)
-            
-            // console.log(data)
         }).then(function(data)  {
             
         })

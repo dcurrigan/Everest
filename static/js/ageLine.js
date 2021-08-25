@@ -183,7 +183,6 @@ function ageLineChart(data) {
         // First transition the age/success elements 
         svg = d3.select("#age-success-line-vis")
 
-        console.log((d3.max(data, d => d.success)))
         // set the max value for the y-axis
         max = d3.max(data, d => d.success) + 5
         if (max > 100) {
@@ -222,7 +221,6 @@ function ageLineChart(data) {
         // Now transition the age/death elements 
         svg = d3.select("#age-death-line-vis")
 
-        console.log((d3.max(data, d => d.death)))
         // create the scale and y-axis
         yLinearScale = d3.scaleLinear()
             .domain([0, (d3.max(data, d => d.death)+1)])

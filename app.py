@@ -50,7 +50,7 @@ app = Flask(__name__)
 def home():
 
     # Return template and data
-    return render_template("index22.html")
+    return render_template("index.html")
 
 
 
@@ -99,141 +99,7 @@ def dropdown():
     return clean_data.to_json(orient = "records")
 
 
-@app.route("/api/v1.0/model", methods=['GET','POST'])
-def model():
-    # THIS RETURNS THE PREDICTED OUTCOMES BASED ON THE USERS DATA
 
-    # Load the models and scaler
-    success_model = load_model("models and scalers/success_model.h5")
-    death_model = load_model("models and scalers/death_model.h5")
-    crowding_model_success = load_model("models and scalers/crowding_model_success.h5")
-    crowding_model_death = load_model("models and scalers/crowding_model_death.h5")
-
-    scaler = joblib.load("models and scalers/data_scaler.pkl")
-
-    # if request.method == "POST":
-    
-    # Retrieve the form contents
-    gender = int(request.form['gender'])
-    age = int(request.form['age'])
-    solo = request.form['solo']
-    country = request.form['country']
-    route = request.form['route']
-    job = request.form['job']
-    ascent = request.form.getlist('ascent')
-    descent = request.form.getlist('descent')
-    sleep = request.form.getlist('sleep')
-    crowding_state = request.form.getlist('crowding-state')
-
-    # Set the query string for the bar graph data request
-    if age <20:  
-        query1 = "under 20"
-    elif (age >= 20) and (age < 30):
-        query1 = "20 - 30"
-    elif (age >= 30) and (age < 40):
-        query1 = "30 - 40"
-    elif (age >= 40) and (age < 50):
-        query1 = "40 - 50"
-    elif (age >= 50) and (age < 60):
-        query1 = "50 - 60"
-    elif age > 60:
-        query1 = "over 60"
-    
-    # convert strings to booleans
-    def str_to_binary(string):
-        # checkbox returns a list
-        if isinstance(string, list):
-            if len(string) > 0:
-                string = string[0]
-            else:
-                string = "False"
-        # the rest are strings
-        if string == "True":
-            return 1
-        elif string == "False":
-            return  0
-    
-    solo = str_to_binary(solo)
-    ascent = str_to_binary(ascent)
-    descent = str_to_binary(descent)
-    sleep = str_to_binary(sleep)
-    
-    if (ascent == True) or (descent == True) or (sleep == True): 
-        any_o2 = 1
-    else: 
-        any_o2 = 0
-    
-    if route == "Other":
-        std_route = 0
-    else:
-        std_route = 1
-
-    # Map the country and routes to their corresponding codes
-    country = country_label_map[country]
-    route = route_label_map[route]
-    job = status_label_map[job]
-
-    # Assemble into a list 
-    feature_list = [gender, age, country, solo, route, any_o2, ascent, descent, sleep, std_route, job]
-    
-    # Scale the list with the scaler 
-    scaled_list = scaler.transform([feature_list])
-
-
-    # Run the model on the input data
-    np.array(scaled_list)
-    result1 = success_model.predict(scaled_list)
-    result2 = death_model.predict(scaled_list)
-    # result3 = crowding_model_success()
-
-    predicted_success = round(result1[0][0]*100,2)
-    predicted_death = result2[0][0]*100
-
-    if gender == 0:
-        query2 = "males"
-    else:
-        query2 = "females"
-
-    # Retrieve the comaprison data
-    session = Session(engine)
-    data = pd.read_sql("SELECT * FROM averages", conn).reset_index()
-    session.close()
-    
-    age_data = data[data['group'] == query1 ]
-    gender_data = data[data['group'] == query2 ]
-    overall_data = data[data['group'] == 'overall' ]
-
-    # Fill the bar chart data based on whether crowding model is activated or not
-    if len(crowding_state) > 0: 
-        bar_data = [{'your_success':predicted_success,
-                    'your_death': predicted_death,
-                    'gender_success': gender_data.iloc[0,3],
-                    'gender_death': gender_data.iloc[0,4],
-                    'age_success': age_data.iloc[0,3],
-                    'age_death': gender_data.iloc[0,4],
-                    'overall_success': overall_data.iloc[0,3],
-                    'overall_death': gender_data.iloc[0,4]
-                    }]
-    else: 
-        bar_data = [{ 'your_success':predicted_success,
-                    'your_death': predicted_death,
-                    'gender_success': gender_data.iloc[0,3],
-                    'gender_death': gender_data.iloc[0,4],
-                    'age_success': age_data.iloc[0,3],
-                    'age_death': gender_data.iloc[0,4],
-                    'overall_success': overall_data.iloc[0,3],
-                    'overall_death': gender_data.iloc[0,4]
-                    }]
-    
-    return jsonify(bar_data)
-        
-    # pass
-
-# @app.route("/api/v1.0/bar/<string:gender>&<string:age>&<string:solo>&<string:country>&<string:route>&<bool:any_o2>&<bool:ascent>&<bool:descent>&<bool:sleep>&<bool:std_route>&<string:job>", )
-
-
-# @app.route("/api/v1.0/bar/<gender>&<age>&<solo>&<country>&<route>&<any_o2>&<ascent>&<descent>&<sleep>&<std_route>&<job>")
-# def bar(gender, age, solo, country, route, any_o2, ascent, descent, sleep, std_route, job ):
 
 @app.route('/api/v1.0/bar/', methods=['GET', 'POST'])
 def bar():
