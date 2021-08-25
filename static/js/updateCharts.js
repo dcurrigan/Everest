@@ -15,6 +15,22 @@ function BarChart(data, id) {
     width = 400 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
+    if (id == "#success-bar-vis") {
+        var adjustment_factor = 5
+        var axis_text = "Chance of Success (%)"
+    } else {
+        var adjustment_factor = 0.2
+        var axis_text = "Risk of Death (%)"
+    }
+
+    max = d3.max(data, d => d.score) + adjustment_factor
+
+    if (max > 100) {
+        max == 100
+    }
+
+
+
     // Create/update the scales with the latest data 
     var xBandScale = d3.scaleBand()
         .domain(data.map(d => d.label))
@@ -22,7 +38,7 @@ function BarChart(data, id) {
         .padding(0.1);
 
     var yLinearScale = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d.score)])
+        .domain([0, max])
         .range([height, 0])
 
 
@@ -94,6 +110,13 @@ function BarChart(data, id) {
                 return `${d.score.toFixed(2)}%`
             };
           });    
+
+        // Append the axis labels 
+        svg.append("text")
+          .attr("transform", `translate(-30, ${(height / 2)+50}) rotate(-90)`)
+          .attr("class", "axis-label")
+          .style("font-size", "14px")
+          .text(axis_text);
     
     }
 
