@@ -36,10 +36,10 @@
           <img id="mountain-icon" src="../static/data/mountain.jpg">
         </div>
         <div class="nav-link" id="vis-link">
-          <a onclick="showHideElements()" >Visualisations</a>
+          <a onclick="showHideVis()" >Visualisations</a>
         </div>
         <div class="nav-link" id="about-link">
-          <a href="">About</a>
+          <a onclick="showHideAbout()">About</a>
         </div>
       </div>
 
@@ -176,11 +176,60 @@
           <h3 id="welcome-sub">Quantify the risk of climbing Earth's highest peak</h3>
         </div><br>   
         <div class="view">
-          <button id="view-button" onclick="showHideElements()">View Visualisations</button>
+          <button id="view-button" onclick="showHideVis()">View Visualisations</button>
         </div>
       </div> 
     
+      <div id="about-container" class="grid-child about-container" style="display:none">
 
+        <div class="about-sub-container">
+
+          <h1 id="äbout-header">Everest risk calculator</h1>
+          <figure id="crowding-image">
+            <img src="https://static01.nyt.com/images/2019/05/27/world/26everest2-print/merlin_155279730_9a078aae-b874-4b50-9ff4-72a8ec2a93ae-superJumbo.jpg?quality=90&auto=webp" width=800 height=500 >
+            <figcaption>A line of climbers wait to summit Everest May 2019.<br> <i>Image Source NY Times/ Agence France-Presse — Getty Images</i></figcaption>
+          </figure>
+          <div id="main-text">
+            <h2 class="about-sub-header">Background</h2>
+            <p>2021 marks the 100-hundred-year anniversary of the first attempt (unsuccessful) to summit Earth’s highest peak – Mount Everest. Another 32 years would pass before Edmund Hillary and Tenzing Norgay conquered the mountain, stepping foot on the summit for the first time.<p>
+            </p>
+            <p>Since then, more than 10000 expeditions and 78000 mountaineers have attempted the ascent. The success rate has steadily increased over time, but sadly so too has the count of those who have lost their live on the Mountain. To date 306 people have lost their lives attempting the ascent.</p>
+            <p>
+            Recently there has been <a class="about-link" href="https://www.nytimes.com/2019/05/26/world/asia/mount-everest-deaths.html">reports of overcrowding</a> on the mountain with social media photos of lines of climbers on the summit. This has drawn criticism over safety on the mountain and potential for increased death rates if not controlled
+            </p>       
+            
+            <h2 class="about-sub-header">Aims</h2>
+            <p>Using historical data I sought to create a machine learning to model analyse factors contributing to success and failure in reaching Everest's peak.</p>
+            <p>I also sought to analyse what influence crowding of climbers was having on safety and success on the mountain</p>
+
+            <h2 class="about-sub-header">Data Source</h2>
+            <p>A freely accessible database of all Everest expeditions is available from the <a class="about-link" href="https://www.himalayandatabase.com/">Himalayan Database, Expedition Archieves</a>, and was used to access all available summit attempts since 1921</p>
+
+            <h2 class="about-sub-header">Machine Learning Model</h2>
+            <p>I've created a deep learning, nearal network model, using <a class="about-link" href="https://www.tensorflow.org/">Keras Tensorflow</a>, to predict the likelihood of success and the risk of death. A hyperperameter optimiser tool, <a class="about-link" href="https://github.com/autonomio/talos">Talos</a>, was used to optimise the model.</p>
+            <p>The models achieved 89% accuracy on testing data for prediction of success, and 98.6% accuracy for prediction of death. An additional set of models were created to include the infuence of mountain crowding. This was done by including the number of climbers present on the mountain as a feature variable</p>
+
+            <h2 class="about-sub-header">How to use</h2>
+            <p>Click on the visualisations tab to view the results. Change the variables in the form to see how diffrent factors affect the chance of success and risk of death. To see the influence of crowding on the mountain activate the crowding model with toggle switch on the bottom of the form. The amount of crowding can be increased or decreased with the slider</p>
+
+
+
+          
+
+
+          </div>
+
+          
+
+
+          
+         
+
+
+        </div>
+
+
+      </div>
 
       <div id= "vis-container" class="grid-child vis-container" style="display:none">
         

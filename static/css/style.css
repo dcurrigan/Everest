@@ -39,6 +39,9 @@ height:140vh;
   .form-container {
     margin-left: 100px;
   }
+  .about-container {
+    margin-right: 150px;
+  }
 
 }
 
@@ -149,6 +152,61 @@ a {
   border-radius: 20px;
   opacity: 100%;
   font-family: 'Roboto', sans-serif;
+}
+
+.about-container {
+  display: table-cell;
+  vertical-align: centre;
+  text-align: center;
+  position: relative;
+  margin-left: 50px; 
+  margin-top: 100px;  
+  padding: 20px;  
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 5000;
+  border-radius: 20px;
+  opacity: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+.about-sub-container {
+  display: table-cell;
+  vertical-align: centre;
+  /* text-align: center; */
+  position: relative;
+  margin-left: 50px; 
+  margin-top: 100px;  
+  padding: 20px;  
+  background: #ffffff;
+  z-index: 6000;
+  border-radius: 20px;
+  opacity: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 #about-header {
+  display: inline-block;
+  font-size: 36pt;
+  font-weight: 700;
+} 
+
+crowding-image {
+  display: inline-block;
+}
+
+h2 .about-sub-header {
+  text-align: left;
+}
+
+#main-text {
+  text-align: left;
+  margin-left: 30px;
+}
+
+.about-link {
+  font-size: 12pt;
+  color: #2196F3;
+  font-weight: 200;
 }
 
 #welcome-container {
