@@ -8,7 +8,7 @@ from sqlalchemy import create_engine, func
 
 from flask import Flask, jsonify, request
 from flask import render_template, redirect
-from config import password, country_label_map, route_label_map, status_label_map
+from config import username, password, endpoint, country_label_map, route_label_map, status_label_map
 
 from tensorflow.keras.models import load_model
 import joblib
@@ -19,7 +19,8 @@ import joblib
 # Database Setup
 #################################################
 # create database connection
-engine = create_engine(f'postgresql://postgres:{password}@localhost:5432/Everest_db', echo=False)
+db_url = db_url = f'postgresql://{username}:{password}@{endpoint}/everest_db'
+engine = create_engine(db_url)
 conn = engine.connect()
 
 # reflect database
