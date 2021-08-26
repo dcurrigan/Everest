@@ -1,4 +1,4 @@
-id,expid,membid,myear,sex,calcage,citizen,status,msolo,msuccess,msmtdate1,msmtdate2,msmtdate3,route1,route2,route3,route4,mo2used,mo2none,mo2climb,mo2descent,mo2sleep,death,deathdate,msmtbid,stdrte,new_route,new_status,climber_count
+climber_id,expid,membid,myear,sex,calcage,citizen,status,msolo,msuccess,msmtdate1,msmtdate2,msmtdate3,route1,route2,route3,route4,mo2used,mo2none,mo2climb,mo2descent,mo2sleep,death,deathdate,msmtbid,stdrte,new_route,new_status,climber_count
 0,EVER88401,15,1988,M,49,Belgium,2nd Exp Doctor,False,False,na,na,na,S Col-SE Ridge,,,,False,True,False,False,False,False,na,1,True,South,Doctor,
 1,EVER88401,13,1988,F,30,Netherlands,Exp Doctor,False,False,na,na,na,S Col-SE Ridge,,,,False,True,False,False,False,False,na,1,True,South,Doctor,
 2,EVER88401,14,1988,M,32,Belgium,Climber,False,False,22/12/1988,na,na,S Col-SE Ridge,,,,True,False,True,False,True,False,na,4,True,South,Climber,3.0
