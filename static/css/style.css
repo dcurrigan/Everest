@@ -1,6 +1,9 @@
 body { 
   margin: 0; 
   padding: 0; 
+  height: 100%; 
+  width: 100%;
+  background-color: darkgray;
 }
 
 .grid-container {
@@ -14,100 +17,101 @@ body {
 position: absolute; 
 top: 0; 
 bottom: 0; 
+left: 0;
+right:0; 
 width: 100%; 
-z-index: 4000;
+margin-top: -50px;
+height:140vh;
+/* z-index: 4000; */
 }
 
-.navbar .brand {
-  display: block;
-  color: #e7e7e7;
- /* Remove padding from top/bottom and add 24px padding right/left */
-  padding: 0 24px;
-  font-size: 24px;
+@media screen and (max-width: 1928px) {
+  #map {
+    height: 180vh;
+    width: 102vw;
+  }
 }
 
-.navbar ul li a {
-  color: #e7e7e7;
-  padding: 24px;
-  display: block;
-}
+@media screen and (min-width: 1928px) {
+  .vis-container {
+    margin-right: 150px;
+  }
+  .form-container {
+    margin-left: 100px;
+  }
 
-/* When a usee hovers or focuses to a link change the background */
-.navbar ul a:hover,
-.navbar ul a:focus {
-  background-color: #272727;
 }
 
 
+
+
+/* We don't want any links to be underlined. Let's remove that globally */
 a {
   text-decoration: none;
+  color: #000000;
+  font-size: 20pt;
+  font-weight: 700;
+  display: inline-block;
+
 }
 
-.navbar {
-  background-color: #333333;
-  /* display: flex; */
-  /* let's align the items so everything is nice and centered */
-  align-items: center;
+.nav {
+  position: absolute;
+  vertical-align: centre;
   z-index: 9999;
+  width:100%;
+  overflow:hidden;
+  background-color: rgba(0, 0, 0, 0.75);
+  height: 75px;
+  font-family: 'Roboto', sans-serif;
 }
 
-/* We want all links in the navbar to be #e7e7e7 */
-.navbar a {
-  color: #e7e7e7;
+.nav .nav-link {
+  position: relative; 
+  vertical-align: centre;
+  display: inline-flex;
+  float: left;
+  height: 100%;
+  background-color: #ffffff;
+  color: #000000;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 6px;
+  padding: 10px;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+
 }
 
-.navbar ul {
- /* Let's reset the margin and padding of the list so it's is flush. */
-  margin: 0;
-  padding: 0;
-  /* Let's remove the bullet points */
-  list-style-type: none;
-  /* display the list flex and align the items centered */
-  /* display: flex; */
-  align-items:center;
+.nav .nav-link:hover {
+  background-color: #D3D3D3;
+  border: #50190b solid 1px;
 }
 
-.navbar .brand {
-  /*Let's make the anchor display block.
-     This will ensure when we get the full width of the container.
-  */
-  display: block;
-  color: #e7e7e7;
- /* Remove padding from top/bottom and add 24px padding right/left */
-  padding: 0 24px;
-  font-size: 24px;
+
+
+#mountain-icon{
+  margin: 0px;
+  width: 60px;
+  height: 40px;
+  padding: 0px;
+
 }
 
-.navbar ul li a {
-  color: #e7e7e7;
-  padding: 24px;
-  /*Let's make the anchor display block.
-     This will ensure when we hover, focus, or is active we get the full width and height 
-      of the container.
-  */
-  display: block;
-}
-
-/* When a use hovers or focuses a link change the background */
-.navbar ul a:hover,
-.navbar ul a:focus {
-  background-color: #272727;
-}
-
-.navbar ul a:hover,
-.navbar ul a:focus,
-.navbar ul .active {
-  background-color: #272727;
+.mountain {
+  margin-left: 100px;
+  margin-top: 0px;
+  padding: 0px;
 }
 
 
 .form-container {
   position: relative;
-  margin-left: 50px; 
   margin-top: 100px;    
   height: 1000px;
-  width: 500px;
-  background: rgba(0, 0, 0, 0.5);
+  width: 550px;
+  background: rgba(0, 0, 0, 0.65);
   z-index: 5000;
   border-radius: 20px;
   opacity: 100%;
@@ -123,20 +127,95 @@ a {
   border-radius: 8px;
 }
 
+.form-item-holder last {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+
+
 .vis-container {
   display: table-cell;
   vertical-align: centre;
   text-align: center;
   position: relative;
   margin-left: 50px; 
-  margin-right: 30px;
   margin-top: 100px;  
   padding: 20px;  
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.65);
   z-index: 5000;
   border-radius: 20px;
   opacity: 100%;
   font-family: 'Roboto', sans-serif;
+}
+
+#welcome-container {
+  display: inline-block;
+  vertical-align: centre;
+  text-align: center;
+  position: relative;
+ 
+  margin-left: 50px; 
+  background: rgba(0, 0, 0, 0.65);
+  margin-right: 30px;
+  margin-top: 100px;  
+  padding: 20px;
+  padding-left: 40px;  
+  z-index: 5000;
+  border-radius: 20px;
+  font-family: 'Roboto', sans-serif;
+  margin-left: 20px;
+}
+
+.welcome-box {
+  display:inline-block;
+  background-color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18pt;
+  border-radius: 8px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin-top: 20px;
+}
+
+
+button:hover {
+  background-color: #D3D3D3;
+  border: #50190b solid 1px;
+}
+
+button {
+  display:inline-block;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 12pt;
+  font-weight: 700;
+  padding: 0px;
+  margin-top: 0px;
+  background-color: #ffffff;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+} 
+
+
+#welcome-main {
+  margin-bottom: 0px;
+}
+
+#welcome-sub {
+  font-family: 'Roboto', sans-serif !important;
+  font-size:18pt;
+  padding: 0px;
+  margin-top: 0px;
+}
+
+h1 .welcome-box {
+  margin-bottom: 0px;
 }
 
 

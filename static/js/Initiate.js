@@ -2,6 +2,25 @@
 first_load = true
 
 const url = '/api/v1.0/dropdown';
+rotation_speed = 300
+
+function showHideElements() {
+    document.getElementById("welcome-container").style.display = "none";
+    document.getElementById('vis-container').style.display = "block";
+    map.resize()
+    // rotation_speed = 99999999999999
+}
+
+d3.select("#map-rotation").on("change", function() {
+    console.log("got here")
+    state = d3.select("#map-rotation").property("checked") 
+    if (state == true) {
+        rotation_speed = 300
+    } else {
+        rotation_speed = 99999999999999
+    }
+});
+
 
 // Renders data on initial page load
 function loadData() {

@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-  <!-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet">
 
 
 </head>
@@ -29,28 +29,30 @@
 <body>
 
 
-
-  <div id="map"></div>
   
-  <div id="section1-wrapper" class="wrapper">
-    <div id="map"></div>
-  </div>
-  <div id="section2-wrapper" class="wrapper">
     
-    <nav class="navbar">
-      <a class="brand" href="#">RS</a>
-      <ul>
-        <li>
-          <a class="active" href="#">About</a>
-        </li>
-        <li>
-          <a href="#">Profile</a>
-        </li>
-        <li>
-          <a href="#">Contact</a>
-        </li>
-      </ul>
-    </nav>
+      <div class="nav">
+        <div id="mountain" class="nav-link" id="vis-link">
+          <img id="mountain-icon" src="../static/data/mountain.jpg">
+        </div>
+        <div class="nav-link" id="vis-link">
+          <a onclick="showHideElements()" >Visualisations</a>
+        </div>
+        <div class="nav-link" id="about-link">
+          <a href="">About</a>
+        </div>
+      </div>
+
+    
+  
+
+  
+  
+ 
+    <div id="map"></div>
+
+    
+
     
     <div class="grid-container">
 
@@ -148,6 +150,14 @@
                 <span class="slider round"></span>
               </label>
               <label class="activate-label">Activate Crowding Model</label>
+            </div><br>
+
+            <div class="form-item-holder last">            
+              <label for="map-rotation" class="switch" style="word-wrap:break-word">
+                <input id="map-rotation" name="crowding-state" type="checkbox" value="True" checked="true">
+                <span class="slider round"></span>
+              </label>
+              <label class="activate-label">Map Rotation</label>
             </div>
             
             
@@ -156,8 +166,23 @@
           </form>
          
       </div>
-        
-      <div class="grid-child vis-container">
+    
+    <div class="grid-child">
+      
+      
+      <div id="welcome-container">
+        <div class="welcome-box">
+          <h1 id="welcome-main">Everest Risk Calculator</h1>
+          <h3 id="welcome-sub">Quantify the risk of climbing Earth's highest peak</h3>
+        </div><br>   
+        <div class="view">
+          <button id="view-button" onclick="showHideElements()">View Visualisations</button>
+        </div>
+      </div> 
+    
+
+
+      <div id= "vis-container" class="grid-child vis-container" style="display:none">
         
         
         
