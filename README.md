@@ -84,7 +84,7 @@ Everest
   
 * Data cleaning process is in the ETL file in the root directory  
 * Each ML model has been saved as individual jupyter notebook under the 'models and scalers' folder  
-* The final site can be access at: https://everest-calc.herokuapp.com/  
+* The final site can be accessed at: https://everest-calc.herokuapp.com/  
   
 
 # Design  
@@ -103,9 +103,9 @@ A custom hyperparameter library, <a href="https://github.com/autonomio/talos">Ta
 The Success model had and accuracy of 88%, while the death model had 98.6% accuracy. The high score the the death model must be considered in the context of the low underlying death rate (1.4%). The crowding models had accuracy of 86% (success) and 98% (death). 
 
 ## Site Design and Deployment
-Following data cleaning and creation of three core data tables the data was loaded into a PostgresSQL database which is stored on a <a href="https://aws.amazon.com/rds/">AWS RDS.
+Following data cleaning and creation of three core data tables the data was loaded into a PostgresSQL database which is stored on a <a href="https://aws.amazon.com/rds/">AWS RDS</a>.
   
-The D3 Javascript Library was used to create the visualisations. MapboxGL was used for the 3D terrain background to enhance the atmosphere and story telling of the site. D3-simple slider library was used to create a slider to alter the degree of crowding accounted for in the crowding ML model.  
+The D3 Javascript Library was used to create the visualisations. <a href="https://www.mapbox.com/mapbox-gljs">MapboxGL</a> was used for the 3D terrain background to enhance the atmosphere and story telling of the site. <a href="https://github.com/johnwalley/d3-simple-slider">D3-simple slider</a> library was used to create a slider to alter the degree of crowding accounted for in the crowding ML model.  
   
 The site has been deployed on Heroku. 
 
