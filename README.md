@@ -21,7 +21,7 @@ Final Project - Quantifying the risk of climbing Earth's highest peak
   
 Since then, more than 10000 expeditions and 78000 mountaineers have attempted the ascent. The success rate has steadily increased over time, but sadly so too has the count of those who have lost their live on the Mountain. To date 306 people have lost their lives attempting the ascent.  
   
-Recently there has been reports of overcrowding on the mountain with social media photos of lines of climbers on the summit. This has drawn criticism over safety on the mountain and potential for increased death rates if not controlled  
+Recently there have been reports of overcrowding on the mountain with social media photos of lines of climbers on the summit. This has drawn criticism over safety on the mountain and potential for increased death rates if not controlled  
   
 Aims: Using historical data I sought to create a machine learning to model analyse factors contributing to success and failure in reaching Everest's peak. I also sought to analyse what influence crowding of climbers was having on safety and success on the mountain. 
   
