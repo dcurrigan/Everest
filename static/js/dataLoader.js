@@ -216,7 +216,7 @@ map.on('load', () => {
         // Start the animation.
         rotateCamera(0);
          
-        // Add 3d buildings and remove label layers to enhance the map
+        
         const layers = map.getStyle().layers;
         for (const layer of layers) {
         if (layer.type === 'symbol' && layer.layout['text-field']) {
@@ -225,11 +225,3 @@ map.on('load', () => {
         }
         }
 });
-
-
-
-
-
-
-
-
