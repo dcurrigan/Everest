@@ -2,7 +2,7 @@
 
 username = "postgres"
 
-password = "Garden12"
+password = "Insert password"
 
 endpoint= "everest-db.cxxbssomodsv.ap-southeast-2.rds.amazonaws.com"
 
