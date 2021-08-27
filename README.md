@@ -25,10 +25,10 @@ To help process this data, you will create machine learning models capable of cl
   
 # Project Structure  
 ```
-machine-learning-challenge   
+Everest   
 |  
-|__ ipynb_checkpoints/                                           # Directory for notebook savepoints
 |__ models and scalers/                                          # Directory for saved machine learning models
+|  |__ ipynb_checkpoints/                                        # Directory for notebook savepoints
 |  |__ everest_tune/                                             # Directory for neural network hyperparameter tuning
 |  |__ (MAIN NOTEBOOK) Deep Learning - Success.ipynb             # Notebooks for the trialled ML models 
 |  |__ Deep Learning - Death.ipynb
@@ -44,19 +44,35 @@ machine-learning-challenge
 |  |__ crowding_scaler.pkl
 |
 |__ static
+|  |__ css/
+|  |   |__ style.css                                            # Website styles
+|  |
+|  |__ js/
+|  |   |__ charts/                                              # Javascript files for the d3 charts
+|  |   |         |__ ageLine.js
+|  |   |         |__ barChart.js
+|  |   |         |__ crowdingLine.js
+|  |   |__ dataLoader.js                                        # A script to inititialise and update data for the site
+|  |   |__ slider.js                                            # Custom script for the d3-slider functionality
+|  |
+|  |__ data
+|     |__ mountain.jpg                                          # Image files for the website and readme
+|     |__ everest.jpg
 |
-
-|__ README.md                               # This file
-|__ exoplanets.jpg                          # images files for the readme
-|__ matrix1.png
-|__ matrix2.png
-|                           
-|__ model_1 - Decision_Tree.ipynb 
-|__ model_2 - Deep Learning.ipynb           # Directory for css stylesheets                             
-|__ model_3 - SVM.ipynb                               
-|__ model_4 - KNN.ipynb                                 
-|                                 
-|__ model_2 - Deep Learning.ipynb           # The best performing model
+|__ templates/
+|            |__ index.html                                     # Site landing page    
+|
+|__ README.md                                                   # This file
+|__ ETL.ipynb                                                   # Notebook for ETL process
+|__ Schema.sql                                                  # A copy of the SQL table schema
+|__ app.py                                                      # The Flask app
+|__ config.py                                                   # Access deatils for PostgresSQL, mapping of form data
+|__ everest.csv                                                 # The base data
+|__ clean_data.csv                                              # Output clean data files                             
+|__ crowding_data.csv                           
+|__ requirements.txt                                            # For Deployment to Heroku                               
+|__ Procfile                                 
+|__ Proposal - Everest.docx                                     # The project proposal
 |                             
 |   
 ``` 
