@@ -17,11 +17,14 @@ Final Project - Quantifying the risk of climbing Earth's highest peak
 * [Status](#Status)  
 
 # Project Intro
-This project involved creating machine learning models capable of classifying possible exoplanets into one of three categores - 'CONFIRMED', 'FALSE POSITIVE', or 'CANDIDATE' - based upon data from the <a href="https://www.kaggle.com/nasa/kepler-exoplanet-search-results">NASA Kepler Space Telescope</a>. The briefing for the project was as follows: 
+2021 marks the 100-hundred-year anniversary of the first attempt (unsuccessful) to summit Earth’s highest peak – Mount Everest. Another 32 years would pass before Edmund Hillary and Tenzing Norgay conquered the mountain, stepping foot on the summit for the first time.  
   
-*Over a period of nine years in deep space, the NASA Kepler space telescope has been out on a planet-hunting mission to discover hidden planets outside of our solar system.
-To help process this data, you will create machine learning models capable of classifying candidate exoplanets from the raw dataset.*  
-
+Since then, more than 10000 expeditions and 78000 mountaineers have attempted the ascent. The success rate has steadily increased over time, but sadly so too has the count of those who have lost their live on the Mountain. To date 306 people have lost their lives attempting the ascent.  
+  
+Recently there has been reports of overcrowding on the mountain with social media photos of lines of climbers on the summit. This has drawn criticism over safety on the mountain and potential for increased death rates if not controlled  
+  
+Aims: Using historical data I sought to create a machine learning to model analyse factors contributing to success and failure in reaching Everest's peak. I also sought to analyse what influence crowding of climbers was having on safety and success on the mountain. 
+  
   
 # Project Structure  
 ```
@@ -141,8 +144,11 @@ In conclusion the deep learning model achieved relative success in classifying p
 # Sources
 |No|Source|url|
 |-|-|-|
-|1|NASA Kepler Space Telescope Data - Kaggle        |https://www.kaggle.com/nasa/kepler-exoplanet-search-results|
-|2|NASA exoplanet archive                           |https://exoplanetarchive.ipac.caltech.edu/docs/API_kepcandidate_columns.html|
+|1|The Himalayan Database                                                     |https://www.himalayandatabase.com/|
+|2|NY Times - ‘It Was Like a Zoo’: Death on an Unruly, Overcrowded Everest    |https://www.nytimes.com/2019/05/26/world/asia/mount-everest-deaths.html|
+|3|Talos Autonomy                                                             |https://github.com/autonomio/talos|
+|4|D3 Simple Slider                                                           |https://github.com/johnwalley/d3-simple-slider|
+|5|MapboxGL                                                                   |https://www.mapbox.com/mapbox-gljs|
 
 
   
