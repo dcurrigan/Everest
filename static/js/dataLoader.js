@@ -1,5 +1,6 @@
 
-first_load = true
+// Create global variables that operate between data files to hold data and control function operations
+var first_load = true
 
 var success_data = []
 var death_data = []
@@ -26,6 +27,7 @@ var rotation_speed = 300
  d3.select("#crowding-state").on("change", updateData)
  d3.select(".slider").on("change", updateData)
 
+//  Turn the map rotation on and off
  d3.select("#map-rotation").on("change", function() {
     console.log("got here")
     state = d3.select("#map-rotation").property("checked") 
@@ -36,7 +38,7 @@ var rotation_speed = 300
     }
 });
 
-
+// Show/hide the about/visualisations div's
 function showHideVis() {
     document.getElementById('about-container').style.display = "none";
     document.getElementById("welcome-container").style.display = "none";
@@ -72,9 +74,8 @@ function loadData() {
          d3.select("#country").property("value", "Australia")
         
     }).then(x => {
+        // Call updateData to get the current data
         updateData()
-    }).then(x => {
-        
     })
 
 };
@@ -100,6 +101,7 @@ function updateData() {
     });
     crowding_state = d3.select("#crowding-state").property("checked")
 
+    // set the "Standard Route Feature Variable"
     if (route == "other") {
         std_route = false
     }
@@ -107,6 +109,7 @@ function updateData() {
         std_route = true
     };
 
+    // set the "Any O2 Feature Variable"
     if (ascent == true || descent == true || sleep == true) {
         o2_any = true
     }
@@ -114,6 +117,7 @@ function updateData() {
         o2_any = false
     }
 
+    // Combine variables into an array
     features = [{gender, age, country, route, o2_any, ascent, descent, sleep, std_route, job, crowding_value,crowding_state, }]
 
     // fetch data for the bar chart 
@@ -126,6 +130,7 @@ function updateData() {
     .then(response => { 
         response.json()
         .then(function(data) {
+            // Organise the response into two javascript objects (success and death data)
             success_data = [{'label':'Your Succuss %','score':data[0]['your_success']},
             {'label':'Avg for Gender', 'score': data[0]['gender_success']},
             {'label':'Avg for age','score':data[0]['age_success']},
@@ -138,9 +143,11 @@ function updateData() {
             
 
         }).then(function(data) {
+            // Create the bar charts (functions in barCharts.js)
             BarChart(success_data, "#success-bar-vis")
             BarChart(death_data, "#death-bar-vis")
         }).then(function(data) {
+            // Create the bar charts (function in crowdingLine.js)
             crowdingLine(success_data, death_data)
         })
 
@@ -155,6 +162,7 @@ function updateData() {
     .then(response => { 
         response.json()
         .then(function(data) {
+            // Create the age line charts (function in ageLine.js)
             ageLineChart(data)
         }).then(function(data)  {
             
@@ -163,7 +171,7 @@ function updateData() {
 
  };
 
-
+// Create the map background
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGN1cnJpZ2FuIiwiYSI6ImNrcjdreHRmNDJvY3Yyb21ubWlqamllYWsifQ.Gp70CMOYPnRIGC5PcdS0fQ';
 
 var map = new mapboxgl.Map({
@@ -175,9 +183,9 @@ bearing:11.92,
 style: 'mapbox://styles/dcurrigan/cksrdtcqo2l4217mfgvb8q9il'
 });
 
+
 map.on('load', () => {
-    
-    
+      
     map.addSource('mapbox-dem', {
     'type': 'raster-dem',
     'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
@@ -185,11 +193,10 @@ map.on('load', () => {
     'maxzoom': 14
     });
     
-    
     // add the DEM source as a terrain layer with exaggerated height
     map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 2 });
      
-    // add a sky layer that will show when the map is highly pitched
+    // add a sky layer that will show when the map pitched
     map.addLayer({
     'id': 'sky',
     'type': 'sky',
@@ -199,11 +206,12 @@ map.on('load', () => {
     'sky-atmosphere-sun-intensity': 15
     }})
 
+    // disable user map zoom
     map.scrollZoom.disable();
     
 });
 
-
+// Rotate the map around the everest lat lon coordinates
 function rotateCamera(timestamp) {
     // clamp the rotation between 0 -360 degrees
     // Divide timestamp by 100 to slow rotation to ~10 degrees / sec
@@ -212,8 +220,9 @@ function rotateCamera(timestamp) {
     requestAnimationFrame(rotateCamera);
 }
 
+// Start the animation.
 map.on('load', () => {
-        // Start the animation.
+        
         rotateCamera(0);
          
         

@@ -1,6 +1,6 @@
 
 
-
+// Function to create the age/success/death line charts
 function ageLineChart(data) {
 
     data.forEach(d => {
@@ -18,8 +18,7 @@ function ageLineChart(data) {
         initiateSecondLineChart(data)
     }
     
-             
-
+    // Create the first chart  
     function initiateFirstLineChart(data) {
         
         var margin = {top: 10, right: 10, bottom: 20, left: 40},
@@ -40,18 +39,20 @@ function ageLineChart(data) {
             .domain([0, max])
             .range([height, 0])
 
-
         xaxis = d3.axisBottom().scale(xLinearScale)
         yaxis = d3.axisLeft().scale(yLinearScale)
 
+        // Select the chart svg holder
         var svg = d3.select("#age-success-line-vis")
         
+        // Append the svg
         svg.append("svg")
             .attr('width', width + margin.left + margin.right)
             .attr('height', height + margin.top + margin.bottom)
             .append('g')
             .attr("transform", `translate(${margin.left}, ${margin.top})`)
 
+        // Append the axes
         svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(40," + (height+margin.top) + ")")
@@ -65,6 +66,7 @@ function ageLineChart(data) {
 
         colours = ['#fe8a71','#0e9aa7','#3da4ab', '#f6cd61']
 
+        // Append the success line
         success_line = svg.append("path")
                     .datum(data)
                     .attr("class", "age-success-line")
@@ -79,7 +81,7 @@ function ageLineChart(data) {
                         .x(d =>(xLinearScale(d.age)+margin.left))
                         .y(d => (yLinearScale(d.success)+margin.top)))
                     
-
+        // Apppend the axis labels
         svg.append("text")
             .attr("transform", `translate(${(width / 2)+20}, ${height + 43 })`)   
             .attr("class", "axis-label")
@@ -92,11 +94,11 @@ function ageLineChart(data) {
         .style("font-size", "14px")
         .text("Chance of Success (%)");
 
-      
-
+     
         first_load = false
     }
 
+    // Create the second line chart
     function initiateSecondLineChart(data) {
         
         var margin = {top: 10, right: 10, bottom: 20, left: 40},
@@ -115,14 +117,17 @@ function ageLineChart(data) {
         xaxis = d3.axisBottom().scale(xLinearScale)
         yaxis = d3.axisLeft().scale(yLinearScale).ticks(8)
 
+        // Select the svg holder
         svg = d3.select("#age-death-line-vis")
         
+        // append the svg
         svg.append("svg")
             .attr('width', width + margin.left + margin.right)
             .attr('height', height + margin.top + margin.bottom)
             .append('g')
             .attr("transform", `translate(${margin.left}, ${margin.top})`)
 
+        // append the axes
         svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(40," + (height+margin.top) + ")")
@@ -136,7 +141,7 @@ function ageLineChart(data) {
         
         colours = ['#fe8a71','#0e9aa7','#3da4ab', '#f6cd61']
 
-
+        // append the death line
         success_line = svg.append("path")
             .datum(data)
             .attr("fill", "none")
@@ -147,7 +152,7 @@ function ageLineChart(data) {
                 .x(d =>(xLinearScale(d.age)+margin.left))
                 .y(d => (yLinearScale(d.death)+margin.top)))
         
-
+        // append the axis labels 
         svg.append("text")
             .attr("transform", `translate(${(width / 2)+20}, ${height + 43 })`)   
             .attr("class", "axis-label")
@@ -166,14 +171,13 @@ function ageLineChart(data) {
 
 
 
-
+    // Function to update the lines with new data
     function updateLineChart() {
-        
-
         
         var margin = {top: 10, right: 10, bottom: 20, left: 40},
         width = 400 - margin.left - margin.right,
         height = 300 - margin.top - margin.bottom;       
+
 
         var xLinearScale = d3.scaleLinear()
             .domain([15,70])
@@ -250,19 +254,9 @@ function ageLineChart(data) {
         trans.selectAll(".age-death-line")
         .attr("d", line)
 
-
-
-
     
     }
     
-    
-    
-    // })
-    
-
-
-
 
 
 }
