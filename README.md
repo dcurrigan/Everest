@@ -27,9 +27,25 @@ To help process this data, you will create machine learning models capable of cl
 ```
 machine-learning-challenge   
 |  
-|__ ipynb_checkpoints/                      # Directory for notebook savepoints
-|__ hp_dir/                                 # Directory for neural network hyperparameter tuning  
+|__ ipynb_checkpoints/                                           # Directory for notebook savepoints
+|__ models and scalers/                                          # Directory for saved machine learning models
+|  |__ everest_tune/                                             # Directory for neural network hyperparameter tuning
+|  |__ (MAIN NOTEBOOK) Deep Learning - Success.ipynb             # Notebooks for the trialled ML models 
+|  |__ Deep Learning - Death.ipynb
+|  |__ Deep Learning - Success (crowding adapted).ipynb
+|  |__ Deep Learning - Death (crowding adapted).ipynb
+|  |__ Trial Model - Decision Tree.ipynb
+|  |__ Trial Model - Random Forrest.ipynb
+|  |__ success_model.h5                                         # The 4 final models
+|  |__ death_model.h5
+|  |__ crowding_model_success.h5
+|  |__ crowding_model_death.h5
+|  |__ data_scaler.pkl                                          # The 2 scalers
+|  |__ crowding_scaler.pkl
 |
+|__ static
+|
+
 |__ README.md                               # This file
 |__ exoplanets.jpg                          # images files for the readme
 |__ matrix1.png
