@@ -30,10 +30,10 @@ Aims: Using historical data I sought to create a machine learning to model analy
 ```
 Everest   
 |  
-|__ models and scalers/                                          # Directory for saved machine learning models
-|  |__ ipynb_checkpoints/                                        # Directory for notebook savepoints
-|  |__ everest_tune/                                             # Directory for neural network hyperparameter tuning
-|  |__ (MAIN NOTEBOOK) Deep Learning - Success.ipynb             # Notebooks for the trialled ML models 
+|__ models and scalers/                                         # Directory for saved machine learning models
+|  |__ ipynb_checkpoints/                                       # Directory for notebook savepoints
+|  |__ everest_tune/                                            # Directory for neural network hyperparameter tuning
+|  |__ (MAIN NOTEBOOK) Deep Learning - Success.ipynb            # Notebooks for the trialled ML models 
 |  |__ Deep Learning - Death.ipynb
 |  |__ Deep Learning - Success (crowding adapted).ipynb
 |  |__ Deep Learning - Death (crowding adapted).ipynb
@@ -95,6 +95,7 @@ Everest
 
 <strong>Feature Selection</strong>  
 For the deep learning models recursive feature elimination was used to find the optimal features to include in the model. 
+The 'crowding models' include the number of climbers on the mountain as a feature, while the standard model does not. 
   
 <strong>Hyperparameter Tuning</strong>  
 A custom hyperparameter library, <a href="https://github.com/autonomio/talos">Talos</a> was used to find the optimised parameters for each of the four modelss. This allowed for a definig of a hyperparameter dictionary which could be trailled in different combination. A report was then generated as a dataframe comparing the accuracy of the diffrent parameter combinations.  
