@@ -5,7 +5,7 @@ Final Project - Quantifying the risk of climbing Earth's highest peak
 > August 2021  
   
   
-![ML](/exoplanets.jpg)  
+![ML](/static/data/everest.jpg)  
 
 ## Table of contents  
 * [Project Intro](#Project-Intro)  
